@@ -1,62 +1,26 @@
-# This is a simple calculator that performs basic arithmetic operations
-# ^ Initialize the first and second numbers to 0
-num1 = 0
-num2 = 0
-
-# ^ List of valid operators
-operators = ["+", "-", "*", "/"]
-
-# ^ Start an infinite loop for the calculator
+num1, num2, operators = 0, 0, ["+", "-", "*", "/"]  # ^ Initialize variables and list of valid operators
 while True:
-    # * If num1 is 0, prompt the user to enter the first number
     if num1 == 0:
-        while True:
-            num1 = input("Enter first number: ")
-            if not num1.isnumeric():
-                print("Invalid input")  # ^ Validate input
-            else:
-                num1 = int(num1)  # ^ Convert input to integer
-                break
-
-    # * Prompt the user to enter a valid operation
-    while True:
-        operation = input("Enter operation(+,-,*,/): ")
-        if operation in operators:
-            break
-        else:
-            print("Invalid operation")  # ^ Validate operation
-
-    # * Prompt the user to enter the second number
-    while True:
-        num2 = input("Enter second number: ")
-        if not num2.isnumeric():
-            print("Invalid input")  # ^ Validate input
-        else:
-            num2 = int(num2)  # ^ Convert input to integer
-            break
-
-    # ^ Perform the operation based on the user input
-    match operation:
-        case "+":
-            num1 = num1 + num2
-        case "-":
-            num1 = num1 - num2
-        case "*":
-            num1 = num1 * num2
-        case "/":
-            if num2 == 0:
-                print("Division by zero is not allowed")  # ^ Handle division by zero
-                continue
-            num1 = num1 / num2
-
-    # * Print the result of the operation
-    print(f"The result is: {num1}")
-
-    # * Ask the user if they want to continue
+        # * Prompt for the first number until a valid numeric input is provided
+        while not (num1 := input("Enter first number: ")).isnumeric():
+            print("Invalid input")
+    # * Prompt for a valid operation until one of the valid operators is provided
+    while (operation := input("Enter operation(+,-,*,/): ")) not in operators:
+        print("Invalid operation")
+    # * Prompt for the second number until a valid numeric input is provided
+    while not (num2 := input("Enter second number: ")).isnumeric():
+        print("Invalid input")
+    try:
+        # ^ Perform the calculation using eval and update num1 with the result
+        num1 = eval(f"{num1}{operation}{num2}")
+        print(f"The result is: {num1}") # * Show user the result
+    except ZeroDivisionError:
+        # * Handle division by zero error
+        print("Division by zero not allowed!")
+        continue
+    # * Check if the user wants to continue or exit the loop
     if input("Do you want to continue(y/n): ").lower() == "n":
         break
-
-    # * Ask the user if they want to reset the calculator
+    # * Check if the user wants to reset the calculator
     if input("Do you want to reset the calculator(y/n): ").lower() == "y":
-        num1 = 0
-        num2 = 0
+        num1, num2 = 0, 0  # ^ Reset the numbers
