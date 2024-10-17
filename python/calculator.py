@@ -1,4 +1,4 @@
-num1, num2, operators = 0, 0, ["+", "-", "*", "/"]  # ^ Initialize variables and list of valid operators
+num1, num2, operators = 0, 0, "+-*/"  # ^ Initialize variables and list of valid operators
 while True:
     if num1 == 0:
         # * Prompt for the first number until a valid numeric input is provided
